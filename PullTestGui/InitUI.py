@@ -14,15 +14,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 480)
-        MainWindow.setStyleSheet("*\n"
-"{\n"
-"}\n"
-"\n"
-"graphicsView\n"
-"{\n"
-"    background: rgb(180,180,180);\n"
-"}\n"
-"")
+        MainWindow.setStyleSheet("graphicsView{background: rgb(180,180,180);}")
         self.centralWidget = QtWidgets.QWidget(MainWindow)
         self.centralWidget.setEnabled(True)
         self.centralWidget.setWhatsThis("")
@@ -171,7 +163,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralWidget)
 
-        self.retranslateUi(MainWindow)
+        #self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
