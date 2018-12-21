@@ -9,15 +9,13 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from InitUI import Ui_MainWindow
 import sys
 
-
 def main():
     app = QApplication(sys.argv)
-    # Create an instance of QtMainWindow class
     window = QMainWindow( )
     ui = Ui_MainWindow()
     ui.setupUi(window)
 
-    window.show()
+    window.showMaximized()
     sys.exit(app.exec_())
 
 main()

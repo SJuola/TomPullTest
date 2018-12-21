@@ -163,9 +163,22 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralWidget)
 
-        #self.retranslateUi(MainWindow)
+        self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
+    def retranslateUi(self, MainWindow):
+        _translate  = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "Tom Accelerated Test"))
+        self.pushButton_3.setText(_translate("MainWindow", "-"))
+        self.label_2.setText(_translate("MainWindow", "50"))
+        self.label.setText(_translate("MainWindow", "In/s"))
+        self.pushButton_4.setText(_translate("MainWindow", "+"))
+        self.pushButton_2.setText(_translate("MainWindow", "Start"))
+        self.pushButton.setText(_translate("MainWindow", "Log Data"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.Tab1), _translate("MainWindow", "Test Mode"))
+        self.label_3.setText(_translate("MainWindow", "Current Position: "))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Manual Control"))
 
 def main():
     app = QApplication(sys.argv)
