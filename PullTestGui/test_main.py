@@ -8,7 +8,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 
-import sys, serial, time
+import sys, serial, time, signal
 import numpy as np
 import pyqtgraph as pg
 from pyqtgraph import PlotWidget
@@ -158,4 +158,6 @@ def main():
 
     window.showFullScreen()
     sys.exit(app.exec_())
+
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
 main()

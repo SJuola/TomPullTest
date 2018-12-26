@@ -14,26 +14,32 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 480)
         MainWindow.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         MainWindow.setStyleSheet("/*---New Edit--*/\n"
-"QWidget{background: black;}\n"
+"QWidget\n"
+"{\n"
+"    background: black\n"
+"}\n"
 "QTabBar{ background: #c9cbcd; color: rgb(9,9,9)}\n"
 "QPushButton:hover, QPushButton:pressed{background-color: rgba(255,255,255,0.6)}\n"
 "QGroupBox{color: white}\n"
 "QGroupBox > QLabel{color: white}\n"
 "QGroupBox > QLineEdit, QToolButton{background: white}\n"
-"QGroupBox:indicator{background: white; color: black; width: 18px; height: 18px}\n"
+"QGroupBox::indicator\n"
+"{\n"
+"    background: white;\n"
+"    width: 18px;\n"
+"    height: 18px\n"
+"}\n"
+"\n"
 "QGroupBox  {\n"
 "    border: 0.5px solid rgba(255,255,255, 0.3);\n"
 "    border-radius: 3px;\n"
 "    margin-top: 27px;\n"
 "}\n"
-"\n"
 "QGroupBox::title  {\n"
 "    background-color: transparent;\n"
 "    subcontrol-origin: margin;\n"
 "    padding: 5px ;\n"
 "}\n"
-"\n"
-"\n"
 "/*QMainWindow{background: #e8e8e8}*/\n"
 "QPushButton:disabled{ background: #999; color: black}\n"
 "QPushButton{ height: 45px; background: #f3f4f5}\n"
@@ -134,14 +140,14 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.stopBtn = QtWidgets.QPushButton(self.controlGroup)
         font = QtGui.QFont()
-        font.setFamily("Sans Serif")
+        font.setFamily("Monospace")
         font.setPointSize(16)
         self.stopBtn.setFont(font)
         self.stopBtn.setObjectName("stopBtn")
         self.gridLayout_2.addWidget(self.stopBtn, 4, 0, 1, 3)
         self.startBtn = QtWidgets.QPushButton(self.controlGroup)
         font = QtGui.QFont()
-        font.setFamily("Sans Serif")
+        font.setFamily("Monospace")
         font.setPointSize(16)
         self.startBtn.setFont(font)
         self.startBtn.setStyleSheet("background: #006cb1; color: white")
