@@ -13,12 +13,35 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 480)
         MainWindow.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
-        MainWindow.setStyleSheet("QMainWindow{background: #e8e8e8}\n"
+        MainWindow.setStyleSheet("/*---New Edit--*/\n"
+"QWidget{background: black;}\n"
+"QTabBar{ background: #c9cbcd; color: rgb(9,9,9)}\n"
+"QPushButton:hover, QPushButton:pressed{background-color: rgba(255,255,255,0.6)}\n"
+"QGroupBox{color: white}\n"
+"QGroupBox > QLabel{color: white}\n"
+"QGroupBox > QLineEdit, QToolButton{background: white}\n"
+"QGroupBox:indicator{background: white; width: 18px; height: 18px}\n"
+"QGroupBox  {\n"
+"    border: 0.5px solid rgba(255,255,255, 0.3);\n"
+"    border-radius: 3px;\n"
+"    margin-top: 27px;\n"
+"}\n"
+"\n"
+"QGroupBox::title  {\n"
+"    background-color: transparent;\n"
+"    subcontrol-origin: margin;\n"
+"    padding: 5px ;\n"
+"}\n"
+"\n"
+"\n"
+"/*QMainWindow{background: #e8e8e8}*/\n"
 "QPushButton:disabled{ background: #999; color: black}\n"
 "QPushButton{ height: 45px; background: #f3f4f5}\n"
 "PlotWidget{ color: rgb(35, 85, 244) !important}\n"
-"QGroupBox{background: #e5e5e5}\n"
-"QTabBar{ background: #c9cbcd; color: rgb(9,9,9)}")
+"/*QGroupBox{background: #e5e5e5}*/\n"
+"\n"
+"\n"
+"")
         self.centralWidget = QtWidgets.QWidget(MainWindow)
         self.centralWidget.setEnabled(True)
         self.centralWidget.setWhatsThis("")
@@ -41,6 +64,11 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.tabWidget.setObjectName("tabWidget")
         self.Tab1 = QtWidgets.QWidget()
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.Tab1.sizePolicy().hasHeightForWidth())
+        self.Tab1.setSizePolicy(sizePolicy)
         self.Tab1.setObjectName("Tab1")
         self._2 = QtWidgets.QGridLayout(self.Tab1)
         self._2.setContentsMargins(11, 11, 11, 11)
@@ -116,7 +144,7 @@ class Ui_MainWindow(object):
         font.setFamily("Sans Serif")
         font.setPointSize(16)
         self.startBtn.setFont(font)
-        self.startBtn.setStyleSheet("background: #006cb1")
+        self.startBtn.setStyleSheet("background: #006cb1; color: white")
         self.startBtn.setObjectName("startBtn")
         self.gridLayout_2.addWidget(self.startBtn, 3, 0, 1, 3)
         self.setpullspeedLabel = QtWidgets.QLabel(self.controlGroup)
@@ -127,7 +155,7 @@ class Ui_MainWindow(object):
         self.setpullspeedLabel.setSizePolicy(sizePolicy)
         self.setpullspeedLabel.setMinimumSize(QtCore.QSize(60, 0))
         font = QtGui.QFont()
-        font.setFamily("Sans Serif")
+        font.setFamily("Monospace")
         font.setPointSize(30)
         self.setpullspeedLabel.setFont(font)
         self.setpullspeedLabel.setAlignment(QtCore.Qt.AlignBottom|QtCore.Qt.AlignHCenter)
@@ -141,7 +169,7 @@ class Ui_MainWindow(object):
         self.pullspeedunitLabel.setSizePolicy(sizePolicy)
         self.pullspeedunitLabel.setMinimumSize(QtCore.QSize(60, 0))
         font = QtGui.QFont()
-        font.setFamily("Sans Serif")
+        font.setFamily("Monospace")
         font.setPointSize(16)
         self.pullspeedunitLabel.setFont(font)
         self.pullspeedunitLabel.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
@@ -155,8 +183,8 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.incrementBtn.sizePolicy().hasHeightForWidth())
         self.incrementBtn.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setFamily("Sans Serif")
-        font.setPointSize(45)
+        font.setFamily("Monospace")
+        font.setPointSize(35)
         self.incrementBtn.setFont(font)
         self.incrementBtn.setStyleSheet("")
         self.incrementBtn.setObjectName("incrementBtn")
@@ -169,7 +197,7 @@ class Ui_MainWindow(object):
         self.decrementBtn.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Monospace")
-        font.setPointSize(45)
+        font.setPointSize(35)
         self.decrementBtn.setFont(font)
         self.decrementBtn.setObjectName("decrementBtn")
         self.gridLayout_2.addWidget(self.decrementBtn, 0, 0, 2, 1)
@@ -203,7 +231,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.currentpositionLabel.sizePolicy().hasHeightForWidth())
         self.currentpositionLabel.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setFamily("Sans Serif")
+        font.setFamily("Monospace")
         font.setPointSize(16)
         self.currentpositionLabel.setFont(font)
         self.currentpositionLabel.setAlignment(QtCore.Qt.AlignCenter)
@@ -253,7 +281,7 @@ class Ui_MainWindow(object):
         self.stopBtn.setText(_translate("MainWindow", "Stop"))
         self.startBtn.setText(_translate("MainWindow", "Start"))
         self.setpullspeedLabel.setText(_translate("MainWindow", "50"))
-        self.pullspeedunitLabel.setText(_translate("MainWindow", "In/s"))
+        self.pullspeedunitLabel.setText(_translate("MainWindow", "in/s"))
         self.incrementBtn.setText(_translate("MainWindow", "+"))
         self.decrementBtn.setText(_translate("MainWindow", "-"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Tab1), _translate("MainWindow", "Test Mode"))
