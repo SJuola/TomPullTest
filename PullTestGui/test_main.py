@@ -156,6 +156,6 @@ def main():
 
     signal_and_slots_setup(ui)
 
-    window.show()
+    window.showFullScreen()
     sys.exit(app.exec_())
 main()
