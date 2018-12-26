@@ -20,7 +20,7 @@ class Ui_MainWindow(object):
 "QGroupBox{color: white}\n"
 "QGroupBox > QLabel{color: white}\n"
 "QGroupBox > QLineEdit, QToolButton{background: white}\n"
-"QGroupBox:indicator{background: white; width: 18px; height: 18px}\n"
+"QGroupBox:indicator{background: white; color: black; width: 18px; height: 18px}\n"
 "QGroupBox  {\n"
 "    border: 0.5px solid rgba(255,255,255, 0.3);\n"
 "    border-radius: 3px;\n"
