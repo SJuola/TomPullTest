@@ -1,186 +1,127 @@
 #!usr/bin/env/python3
 
-# Form implementation generated from reading ui file 'mainwindow.ui'
-#
-# Created by: PyQt5 UI code generator 5.11.3
-#
-# WARNING! All changes made in this file will be lost!
+# Author: Kiet Tran
+# Init date: 12/21/2018
+# Work in progress
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
+
 import sys
+import time
+import numpy as np
+import pyqtgraph as pg
+from pyqtgraph import PlotWidget, GraphicsView
+from functools import partial
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 480)
-        MainWindow.setStyleSheet("*\n"
-"{\n"
-"}\n"
-"\n"
-"graphicsView\n"
-"{\n"
-"    background: rgb(180,180,180);\n"
-"}\n"
-"")
-        self.centralWidget = QtWidgets.QWidget(MainWindow)
-        self.centralWidget.setEnabled(True)
-        self.centralWidget.setWhatsThis("")
-        self.centralWidget.setObjectName("centralWidget")
-        self.gridLayout = QtWidgets.QGridLayout(self.centralWidget)
-        self.gridLayout.setContentsMargins(11, 11, 11, 11)
-        self.gridLayout.setSpacing(6)
-        self.gridLayout.setObjectName("gridLayout")
-        self.tabWidget = QtWidgets.QTabWidget(self.centralWidget)
-        self.tabWidget.setTabPosition(QtWidgets.QTabWidget.East)
-        self.tabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
-        self.tabWidget.setObjectName("tabWidget")
-        self.Tab1 = QtWidgets.QWidget()
-        self.Tab1.setObjectName("Tab1")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.Tab1)
-        self.horizontalLayout_2.setContentsMargins(11, 11, 11, 11)
-        self.horizontalLayout_2.setSpacing(6)
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setSpacing(6)
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.graphicsView = QtWidgets.QGraphicsView(self.Tab1)
-        self.graphicsView.setMinimumSize(QtCore.QSize(320, 0))
-        self.graphicsView.setStyleSheet("width: 60%")
-        self.graphicsView.setObjectName("graphicsView")
-        self.horizontalLayout.addWidget(self.graphicsView)
-        self.verticalLayout = QtWidgets.QVBoxLayout()
-        self.verticalLayout.setContentsMargins(20, -1, -1, -1)
-        self.verticalLayout.setSpacing(6)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_3.setSpacing(6)
-        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.pushButton_3 = QtWidgets.QPushButton(self.Tab1)
-        self.pushButton_3.setMinimumSize(QtCore.QSize(0, 100))
-        font = QtGui.QFont()
-        font.setFamily("Monospace")
-        font.setPointSize(30)
-        font.setBold(True)
-        font.setWeight(75)
-        self.pushButton_3.setFont(font)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.horizontalLayout_3.addWidget(self.pushButton_3)
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_2.setContentsMargins(0, 0, -1, -1)
-        self.verticalLayout_2.setSpacing(6)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-        self.verticalLayout_2.addItem(spacerItem)
-        self.label_2 = QtWidgets.QLabel(self.Tab1)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
-        self.label_2.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setFamily("Monospace")
-        font.setPointSize(30)
-        self.label_2.setFont(font)
-        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_2.setObjectName("label_2")
-        self.verticalLayout_2.addWidget(self.label_2)
-        self.label = QtWidgets.QLabel(self.Tab1)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy)
-        self.label.setMinimumSize(QtCore.QSize(0, 25))
-        font = QtGui.QFont()
-        font.setFamily("Monospace") #setting the font family for the entire application
-        self.label.setFont(font)
-        self.label.setAutoFillBackground(True)
-        self.label.setStyleSheet("")
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label")
-        self.verticalLayout_2.addWidget(self.label)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-        self.verticalLayout_2.addItem(spacerItem1)
-        self.horizontalLayout_3.addLayout(self.verticalLayout_2)
-        self.pushButton_4 = QtWidgets.QPushButton(self.Tab1)
-        self.pushButton_4.setMinimumSize(QtCore.QSize(0, 100))
-        font = QtGui.QFont()
-        font.setFamily("Monospace")
-        font.setPointSize(30)
-        font.setBold(True)
-        font.setWeight(75)
-        self.pushButton_4.setFont(font)
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.horizontalLayout_3.addWidget(self.pushButton_4)
-        self.verticalLayout.addLayout(self.horizontalLayout_3)
-        self.pushButton_2 = QtWidgets.QPushButton(self.Tab1)
-        self.pushButton_2.setMinimumSize(QtCore.QSize(0, 75))
-        font = QtGui.QFont()
-        font.setFamily("FreeSans")
-        font.setPointSize(18)
-        font.setBold(True)
-        font.setWeight(75)
-        self.pushButton_2.setFont(font)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.verticalLayout.addWidget(self.pushButton_2)
-        self.pushButton = QtWidgets.QPushButton(self.Tab1)
-        self.pushButton.setMinimumSize(QtCore.QSize(0, 75))
-        font = QtGui.QFont()
-        font.setFamily("FreeSans")
-        font.setPointSize(18)
-        font.setBold(True)
-        font.setWeight(75)
-        self.pushButton.setFont(font)
-        self.pushButton.setObjectName("pushButton")
-        self.verticalLayout.addWidget(self.pushButton)
-        self.horizontalLayout.addLayout(self.verticalLayout)
-        self.horizontalLayout_2.addLayout(self.horizontalLayout)
-        self.tabWidget.addTab(self.Tab1, "")
-        self.tab_2 = QtWidgets.QWidget()
-        self.tab_2.setObjectName("tab_2")
-        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.tab_2)
-        self.verticalLayout_4.setContentsMargins(11, 11, 11, 11)
-        self.verticalLayout_4.setSpacing(6)
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_3.setContentsMargins(10, 30, 10, 30)
-        self.verticalLayout_3.setSpacing(20)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.dial = QtWidgets.QDial(self.tab_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.dial.sizePolicy().hasHeightForWidth())
-        self.dial.setSizePolicy(sizePolicy)
-        self.dial.setMinimumSize(QtCore.QSize(300, 300))
-        self.dial.setObjectName("dial")
-        self.verticalLayout_3.addWidget(self.dial)
-        self.label_3 = QtWidgets.QLabel(self.tab_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
-        self.label_3.setSizePolicy(sizePolicy)
-        self.label_3.setMinimumSize(QtCore.QSize(0, 20))
-        self.label_3.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_3.setObjectName("label_3")
-        self.verticalLayout_3.addWidget(self.label_3)
-        self.verticalLayout_4.addLayout(self.verticalLayout_3)
-        self.tabWidget.addTab(self.tab_2, "")
-        self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
-        MainWindow.setCentralWidget(self.centralWidget)
+# Import the Python script exported from Qt Creator .ui file
+from UI import Ui_MainWindow as uiwindow
 
-        self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+# Slot function to handle signal when "+" button is pressed
+# @param: speedLabel is the Qt Label that shows the current set pulling speed
+@pyqtSlot(name="increment_speed")
+def incrementSpeed(speedLabel):
+    global setSpeed, ui
+    upperLim = 55
+    ui.decrementBtn.setEnabled(True)
+    if setSpeed>=upperLim:
+        ui.incrementBtn.setEnabled(False)
+        print("Hit speed upper limit")
+    else:
+        ui.incrementBtn.setEnabled(True)
+        setSpeed += speedStepSize
+        speedLabel.setText(str(setSpeed))
+    print("Current set speed %i" %setSpeed)
+
+# Slot function to handle signal when "-" button is pressed
+# @param: speedLabel is the QtLabel that shows the current set pulling speed
+@pyqtSlot(name="decrement_speed")
+def decrementSpeed(speedLabel):
+    global setSpeed, ui
+    lowerLim = 20
+    ui.incrementBtn.setEnabled(True)
+    if setSpeed<=lowerLim:
+        ui.decrementBtn.setEnabled(False)
+        print("Hit speed lower limit")
+    else:
+        ui.decrementBtn.setEnabled(True)
+        setSpeed -= speedStepSize
+        speedLabel.setText(str(setSpeed))
+    print("Current set speed %i" %setSpeed)
+
+# Slot function to handle signal when "Start" button is pressed
+@pyqtSlot(name="start_test")
+def startTest():
+    print("Test started")
+    # Send commands to motor
+
+    # Collect the RPM
+
+    # Convert from RPM to linear speed
+
+    # Plot data
+
+    # Log data
+
+# Slot function to handle signal when "Log Data" button is pressed
+@pyqtSlot(name="log_data")
+def logData():
+    global dirname, window
+    # Prompt where to save the file
+    dirname = str(QFileDialog.getExistingDirectory(parent=window, caption="Select a folder to save log file"))
+    print("Logging data to ... %s" %dirname) 
+
+# Slot function to handle signal when the "manualDial" dial
+# is released after it has been moved
+# @param: dial is a QtDial
+# @param: currentPositionLabel is the QtLabel that shows the current
+# manual position. Expressed in percentage
+@pyqtSlot(name="manual_control_dial")
+def manual_control(dial, currentPositionLabel):
+    val = dial.value()
+    currentPositionLabel.setText(str(val))
+    print("manual control dial changed %i" %val)
+
+# Wire up the pressed/slider change events of each UI
+# component with the appropriate callback functions
+def signal_and_slots_setup(ui):
+    ui.incrementBtn.clicked.connect(partial(incrementSpeed, ui.setpullspeedLabel))
+    ui.decrementBtn.clicked.connect(partial(decrementSpeed, ui.setpullspeedLabel))
+    ui.startBtn.clicked.connect(startTest)
+    ui.logdataBtn.clicked.connect(logData)
+    ui.manualDial.valueChanged.connect(partial(manual_control, ui.manualDial, ui.currentPositionLabel))
+
+def setupPlotArea():
+    global ui
+    ui.plotarea.setContentsMargins(0.0, 0.0, 0.0, 0.0)
+    plotItem = ui.plotarea.getPlotItem()
+    plotItem.enableAutoRange(axis="x", enable=True)
+    plotItem.setLabel('left','Pulling speed [in/s]')
+    plotItem.setLabel('bottom', 'Time [s]')
+    plotItem.setTitle('<h3 style="font-family: Monospace">Pulling Speed over Time</h3>')
+    #plotItem.autoRange(padding="5px")
+    #plotItem.showGrid(x=False, y=True, alpha=0.6)
+    print("Plot title and axis labels updated")
 
 def main():
+    global window, ui, setSpeed, speedStepSize, dirname #dirname is the direcotory to save log data
+
     app = QApplication(sys.argv)
-    # Create an instance of QtMainWindow class
-    window = QMainWindow( )
-    ui = Ui_MainWindow()
+    window = QMainWindow()
+    ui = uiwindow()
     ui.setupUi(window)
+    setupPlotArea()
+
+    # Test plotting
+    x = np.random.normal(size=10000)
+    y = np.sin(x)
+    ui.plotarea.plot(x,y)
+
+    setSpeed = 50
+    speedStepSize = 1
+
+    signal_and_slots_setup(ui)
 
     window.show()
     sys.exit(app.exec_())
