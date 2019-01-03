@@ -31,7 +31,7 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "QGroupBox  {\n"
-"    border: 0.5px solid rgba(255,255,255, 0.3);\n"
+"    border: 0.5px solid rgba(255,255,255, 0.5);\n"
 "    border-radius: 3px;\n"
 "    margin-top: 27px;\n"
 "}\n"
@@ -40,14 +40,16 @@ class Ui_MainWindow(object):
 "    subcontrol-origin: margin;\n"
 "    padding: 5px ;\n"
 "}\n"
+"QTabWidget::pane\n"
+"{\n"
+"    border: 0.5px solid rgba(255,255,255,0.2);\n"
+"    border-radius: 3px;\n"
+"}\n"
 "/*QMainWindow{background: #e8e8e8}*/\n"
 "QPushButton:disabled{ background: #999; color: black}\n"
 "QPushButton{ height: 45px; background: #f3f4f5}\n"
 "PlotWidget{ color: rgb(35, 85, 244) !important}\n"
-"/*QGroupBox{background: #e5e5e5}*/\n"
-"\n"
-"\n"
-"")
+"/*QGroupBox{background: #e5e5e5}*/")
         self.centralWidget = QtWidgets.QWidget(MainWindow)
         self.centralWidget.setEnabled(True)
         self.centralWidget.setWhatsThis("")
@@ -57,7 +59,7 @@ class Ui_MainWindow(object):
         self.gridLayout.setSpacing(6)
         self.gridLayout.setObjectName("gridLayout")
         self.tabWidget = QtWidgets.QTabWidget(self.centralWidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
@@ -70,7 +72,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.tabWidget.setObjectName("tabWidget")
         self.Tab1 = QtWidgets.QWidget()
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.Tab1.sizePolicy().hasHeightForWidth())
@@ -81,7 +83,7 @@ class Ui_MainWindow(object):
         self._2.setSpacing(15)
         self._2.setObjectName("_2")
         self.dataloggingGroup = QtWidgets.QGroupBox(self.Tab1)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.MinimumExpanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.dataloggingGroup.sizePolicy().hasHeightForWidth())
@@ -119,7 +121,7 @@ class Ui_MainWindow(object):
         self.lineEdit.setSizePolicy(sizePolicy)
         self.lineEdit.setObjectName("lineEdit")
         self.gridLayout_3.addWidget(self.lineEdit, 1, 0, 1, 1)
-        self._2.addWidget(self.dataloggingGroup, 1, 0, 1, 1)
+        self._2.addWidget(self.dataloggingGroup, 1, 0, 1, 1, QtCore.Qt.AlignTop)
         self.controlGroup = QtWidgets.QGroupBox(self.Tab1)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
@@ -142,6 +144,8 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Monospace")
         font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
         self.stopBtn.setFont(font)
         self.stopBtn.setObjectName("stopBtn")
         self.gridLayout_2.addWidget(self.stopBtn, 4, 0, 1, 3)
@@ -149,6 +153,8 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Monospace")
         font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
         self.startBtn.setFont(font)
         self.startBtn.setStyleSheet("background: #006cb1; color: white")
         self.startBtn.setObjectName("startBtn")
@@ -207,9 +213,14 @@ class Ui_MainWindow(object):
         self.decrementBtn.setFont(font)
         self.decrementBtn.setObjectName("decrementBtn")
         self.gridLayout_2.addWidget(self.decrementBtn, 0, 0, 2, 1)
-        self._2.addWidget(self.controlGroup, 0, 0, 1, 1)
+        self._2.addWidget(self.controlGroup, 0, 0, 1, 1, QtCore.Qt.AlignTop)
         self.tabWidget.addTab(self.Tab1, "")
         self.Tab2 = QtWidgets.QWidget()
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.Tab2.sizePolicy().hasHeightForWidth())
+        self.Tab2.setSizePolicy(sizePolicy)
         self.Tab2.setObjectName("Tab2")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.Tab2)
         self.verticalLayout_4.setContentsMargins(11, 11, 11, 11)
@@ -261,9 +272,9 @@ class Ui_MainWindow(object):
         self.manualDial.setObjectName("manualDial")
         self.verticalLayout_4.addWidget(self.manualDial)
         self.tabWidget.addTab(self.Tab2, "")
-        self.gridLayout.addWidget(self.tabWidget, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.tabWidget, 0, 1, 1, 1, QtCore.Qt.AlignTop)
         self.plotarea = PlotWidget(self.centralWidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.plotarea.sizePolicy().hasHeightForWidth())

@@ -22,7 +22,10 @@ QWidget
 {
 	background: black
 }
-QTabBar{ background: #c9cbcd; color: rgb(9,9,9)}
+QTabBar{ 
+	background: #c9cbcd;
+	color: rgb(9,9,9);
+}
 QPushButton:hover, QPushButton:pressed{background-color: rgba(255,255,255,0.6)}
 QGroupBox{color: white}
 QGroupBox &gt; QLabel{color: white}
@@ -35,7 +38,7 @@ QGroupBox::indicator
 }
 
 QGroupBox  {
-	border: 0.5px solid rgba(255,255,255, 0.3);
+	border: 0.5px solid rgba(255,255,255, 0.5);
 	border-radius: 3px;
     margin-top: 27px;
 }
@@ -44,14 +47,17 @@ QGroupBox::title  {
     subcontrol-origin: margin;
     padding: 5px ;
 }
+
+QTabWidget::pane
+{
+	border: 0.5px solid rgba(255,255,255,0.2);
+	border-radius: 3px;
+}
 /*QMainWindow{background: #e8e8e8}*/
 QPushButton:disabled{ background: #999; color: black}
 QPushButton{ height: 45px; background: #f3f4f5}
 PlotWidget{ color: rgb(35, 85, 244) !important}
-/*QGroupBox{background: #e5e5e5}*/
-
-
-</string>
+/*QGroupBox{background: #e5e5e5}*/</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="enabled">
@@ -61,10 +67,10 @@ PlotWidget{ color: rgb(35, 85, 244) !important}
     <string notr="true"/>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
+    <item row="0" column="1" alignment="Qt::AlignTop">
      <widget class="QTabWidget" name="tabWidget">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+       <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
@@ -73,6 +79,8 @@ PlotWidget{ color: rgb(35, 85, 244) !important}
        <font>
         <family>Sans Serif</family>
         <pointsize>10</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
       <property name="tabPosition">
@@ -82,11 +90,11 @@ PlotWidget{ color: rgb(35, 85, 244) !important}
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="Tab1">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -98,10 +106,10 @@ PlotWidget{ color: rgb(35, 85, 244) !important}
         <property name="spacing">
          <number>15</number>
         </property>
-        <item row="1" column="0">
+        <item row="1" column="0" alignment="Qt::AlignTop">
          <widget class="QGroupBox" name="dataloggingGroup">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -161,7 +169,7 @@ PlotWidget{ color: rgb(35, 85, 244) !important}
           </layout>
          </widget>
         </item>
-        <item row="0" column="0">
+        <item row="0" column="0" alignment="Qt::AlignTop">
          <widget class="QGroupBox" name="controlGroup">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
@@ -191,6 +199,8 @@ PlotWidget{ color: rgb(35, 85, 244) !important}
               <font>
                <family>Monospace</family>
                <pointsize>16</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
               </font>
              </property>
              <property name="text">
@@ -204,6 +214,8 @@ PlotWidget{ color: rgb(35, 85, 244) !important}
               <font>
                <family>Monospace</family>
                <pointsize>16</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
               </font>
              </property>
              <property name="styleSheet">
@@ -320,6 +332,12 @@ PlotWidget{ color: rgb(35, 85, 244) !important}
        </layout>
       </widget>
       <widget class="QWidget" name="Tab2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <attribute name="title">
         <string>Manual Control</string>
        </attribute>
@@ -402,7 +420,7 @@ PlotWidget{ color: rgb(35, 85, 244) !important}
     <item row="0" column="0">
      <widget class="PlotWidget" name="plotarea">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
