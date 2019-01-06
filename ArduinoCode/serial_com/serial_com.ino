@@ -6,20 +6,16 @@ bool SERIAL_TEST_FLAG = true;
 #define MOTOR2 2
 
 void setup() {
-  Serial.begin(2000000);
+  Serial.begin(115200);
   pinMode(MOTOR1, OUTPUT);
   pinMode(MOTOR2, OUTPUT);
-  handshake();
+  //handshake();
 }
 
 void loop() {
-  if( Serial.available()>0)
+  if(Serial.available())
   {
-    if( SERIAL_TEST_FLAG)
-    {
-      Serial.println("Ready");
-    }
-    Serial.println(Serial.read());//send back to the sender
+    Serial.println("Echo back " + Serial.read());
   }
 }
 void handshake()
@@ -33,6 +29,20 @@ void handshake()
 void accelerate_ramp(double acceleration_time)
 {
   
+}
+
+void setup_encoder()
+{
+  /*Use pin 2 and 3 for channel A and B of the encoder respectively*/
+  pinMode(2,INPUT_PULLUP);
+  pinMode(3,INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(2), read_encoder, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(3), read_encoder, CHANGE);
+}
+
+int read_encoder()
+{
+
 }
 
 /*Checksum to verify data content sent through serial port*/

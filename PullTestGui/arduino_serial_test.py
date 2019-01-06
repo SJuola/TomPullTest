@@ -10,9 +10,8 @@ class ArduinoSerialCom:
 		self.ser.flushInput()
 	def write2Arduino(self,data):
 		self.ser.write(data)
-	def readStream(self):
-		data = self.ser.readline()
-		print(data)
+	def readStream(self, size=8):
+		data = self.ser.read(size)
 		return data
 	def close(self):
 		self.ser.close()
@@ -21,15 +20,11 @@ def main():
 	baudrate = int(input("Enter the baudrate: "))
 	ard_com = ArduinoSerialCom(portname, baudrate)
 
-	data = 'R'
-	print('Test sending data')
 	try:
 		while True:
-			ard_com.readStream()
-			time.sleep(2)
-			print("Sending data ... %s" %data.encode())
-			ard_com.write2Arduino(b'R')
-			ard_com.ser.flush()
+			print("Data received:  " + ard_com.readStream().decode('ascii'))
+			cmd = input("Enter a command: ")
+			ard_com.write2Arduino(cmd.encode('ascii'))
 	except KeyboardInterrupt:
 		ard_com.close()
 		print('exiting ... ')
