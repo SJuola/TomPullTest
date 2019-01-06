@@ -20,8 +20,7 @@ from UI_test import Ui_MainWindow as uiwindow # Import the Python script exporte
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-        self.data = deque()
-
+        
         self.refreshRate    = 10 # default sampling interval
         self.setSpeed       = 50 # default pulling speed
         self.upperSpeedLim  = 55 # Upper pulling speed
@@ -29,7 +28,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.speedStepSize  = 1  # default increment/decrement step size for increase/decreasing pulling speed
         self.isRunning      = False # True when motor is rotating, else False
         self.logDir         = None
-        self.data           = deque() # store velocity data
+        self.data           = deque() # high performace queue to store velocity data
         
         '''Setup timer to polling sample at regular interval'''
         self.time   = QTime()
