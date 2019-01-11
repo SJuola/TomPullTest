@@ -90,7 +90,7 @@ PlotWidget{ color: rgb(35, 85, 244) !important}
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Tab1">
        <property name="sizePolicy">

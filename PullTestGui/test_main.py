@@ -106,7 +106,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Send commands to motor
 
         # Collect the RPM and plot linear velocity
-        self.timer.start(20) #update every 5 miliseconds
+        self.timer.start(20) #update every 20 miliseconds
 
     def stopTest(self):
         print("Test stopped")
