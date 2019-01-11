@@ -24,7 +24,7 @@ bool estop_flag         = false;
 
 
 //Timing
-unsigned long prevTime = millis();
+unsigned long prevTime = millis();f
 
 void setup() {
   pinMode(channelA, INPUT_PULLUP);

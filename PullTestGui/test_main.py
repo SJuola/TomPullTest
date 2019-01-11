@@ -1,5 +1,3 @@
-#!usr/bin/env/python3
-
 # Author: Kiet Tran
 # Init date: 12/21/2018
 # Work in progress
@@ -50,6 +48,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         '''configure velocity plot'''
         self.plotItem = self.ui.plotarea.getPlotItem()
+        self.ui.plotarea.setAntialiasing(True)
         #self.plotItem.enableAutoRange(axis="x", enable=True)
         self.plotItem.enableAutoRange(axis="y", enable=True)
         #self.plotItem.setYRange(min=0,max=60,padding=0.1)
