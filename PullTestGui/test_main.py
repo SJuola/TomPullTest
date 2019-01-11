@@ -6,7 +6,9 @@ from PyQt5           import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore    import QTimer, QTime
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 
-import sys, serial, time, random
+import sys, time, random
+import serial_asyncio
+import serial
 import numpy        as np
 import pyqtgraph    as pg
 from   pyqtgraph    import PlotWidget
@@ -69,9 +71,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.curve = self.plot.plot()'''
 
-    ###############################################################
-    ##################### SLOT FUNCTIONS ##########################
-    ###############################################################
+    ''' SLOT FUNCTIONS '''
     def updatePlot(self):
         self.data.append({'x': self.time.elapsed(), 'y': np.random.uniform(-1, 1)})
         x = [item['x'] for item in self.data]
@@ -151,6 +151,20 @@ class MainWindow(QtWidgets.QMainWindow):
                 print("Logging data to ... %s" %self.logDir)
         else:
             print('Current log dir: %s' %self.logDir)
+    
+    async def async_serial(self):
+        self.reader, self.writer = await serial_asyncio.open_serial_connection(url='/dev/ttyACM0', baudrate=115200)
+    
+    async def send(self, w, msgs):
+        for msg in msgs:
+            w.write(msg)
+            print(f'sent: {msg.decode().rstrip()}')
+            await asyncio.sleep(0.5)
+        #w.write(b'DONE\n')
+        print('Done sending command ...')
+    async def receive(self, r):
+        while True:
+            msg = await r.readuntil(b'\n')
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
