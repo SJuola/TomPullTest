@@ -103,7 +103,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.startBtn.setEnabled(False) # Avoid double clicking issue
         print("Test started")
-        # Send commands to motor
+        # TODO: Send commands to motor
         
         # Collect the RPM and plot linear velocity
         self.timer.timeout.connect(self.updatePlot)
@@ -111,6 +111,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def stopTest(self):
         ''' Gets called when stop button is triggered by user'''
+
+        # TODO: stop the motor
+
         print("Test stopped")
 
     def manual_control(self):
