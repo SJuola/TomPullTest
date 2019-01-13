@@ -51,7 +51,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.plotItem = self.ui.plotarea.getPlotItem()
         self.ui.plotarea.setAntialiasing(True)
         self.plotItem.enableAutoRange(axis="y", enable=True)
-        self.plotItem.setXRange(min=0, max=5000, padding=0.1)
+        self.plotItem.setXRange(min=0, max=3000, padding=0.1)
         self.plotItem.setLabel('left','Pulling speed [in/s]')
         self.plotItem.setLabel('bottom', 'Time [s]')
         self.plotItem.showAxis('right') # Show the plot box
@@ -60,34 +60,40 @@ class MainWindow(QtWidgets.QMainWindow):
         self.plotItem.showGrid(x=True, y=True, alpha=0.3)
         print("Plot title and axis labels updated")
 
+    '''HELPER FUNCTIONS'''
+    def clearPlot(self):
+        self.data.clear()
     ''' SLOT FUNCTIONS '''
     def updatePlot(self):
         ''' Gets called periodically by a QtTimer to update the speed plot 
         in 5 seconds after hitting the start button'''
-
-        if self.time.elapsed() >= 5000: # only do logging for 5 seconds
-            self.timer.stop() # Stop calling updatePlot periodically
-            self.ui.startBtn.setEnabled(True)         
+        if not self.doneWriting:
+            self.data.append({'x': self.time.elapsed(), 'y': np.random.uniform(-1, 1)})
+            x = [item['x'] for item in self.data]
+            y = [item['y'] for item in self.data]
+            #(self.plotItem.listDataItems())[0].setData(x=x, y=y, marker='+',pen= pg.mkPen('w', width=1, style=QtCore.Qt.DotLine))
+            (self.plotItem.listDataItems())[0].setData(x=x, y=y, symbol= 'o',pen= None, symbolPen=(255,255,255), antialias=True, brush='w')
             
-            #Write data to file
-            if self.ui.dataloggingGroup.isChecked() and not self.doneWriting:
-                if self.logDir is None: # check if the log directory string is empty
-                    writePath = '/home/akiet00/Desktop/data_log_' + datetime.datetime.today().strftime('%Y%m%d_%I%M%S') + '.csv' # default directory
-                else:
-                    print("Writing log to custom path")
-                    writePath = self.logDir + '/data_log_' + datetime.datetime.today().strftime('%Y%m%d_%I%M%S') + '.csv'
+            if self.time.elapsed() >= 3000: # only do logging for 3 seconds
+                self.timer.stop() # Stop calling updatePlot periodically
+                self.ui.startBtn.setEnabled(True)         
                 
-                with open(writePath,'w+') as file:
-                    file.writelines('time [miliseconds], velocity [in/s] \n')
-                    for item in self.data:
-                        file.write(str(item['x']) + ',' + str(item['y']) + '\n')
+                #Write data to file
+                if self.ui.dataloggingGroup.isChecked():
+                    if self.logDir is None: # check if the log directory string is empty
+                        writePath = '/home/akiet00/Desktop/data_log_' + datetime.datetime.today().strftime('%Y%m%d_%I%M%S') + '.csv' # default directory
+                    else:
+                        print("Writing log to custom path")
+                        writePath = self.logDir + '/data_log_' + datetime.datetime.today().strftime('%Y%m%d_%I%M%S') + '.csv'
+                    
+                    with open(writePath,'w+') as file:
+                        file.writelines('time [miliseconds], velocity [in/s] \n')
+                        for item in self.data:
+                            file.write(str(item['x']) + ',' + str(item['y']) + '\n')
+                self.clearPlot() # removed all stored data in the queue
                 self.doneWriting = True
-            self.data.clear() # removed all stored data in the queue
-        self.data.append({'x': self.time.elapsed(), 'y': np.random.uniform(-1, 1)})
-        x = [item['x'] for item in self.data]
-        y = [item['y'] for item in self.data]
-        #(self.plotItem.listDataItems())[0].setData(x=x, y=y, marker='+',pen= pg.mkPen('w', width=1, style=QtCore.Qt.DotLine))
-        (self.plotItem.listDataItems())[0].setData(x=x, y=y, symbol= 'o',pen= None, symbolPen=(255,255,255), antialias=True, brush='w')
+            
+
 
     def startTest(self):
         ''' Gets called when start button is triggered by user'''
@@ -112,6 +118,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def stopTest(self):
         ''' Gets called when stop button is triggered by user'''
         self.timer.stop()
+        self.ui.startBtn.setEnabled(True) 
+        self.clearPlot()
         # TODO: stop the motor
 
         print("Test stopped")
