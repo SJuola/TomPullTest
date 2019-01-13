@@ -92,8 +92,6 @@ class MainWindow(QtWidgets.QMainWindow):
                             file.write(str(item['x']) + ',' + str(item['y']) + '\n')
                 self.clearPlot() # removed all stored data in the queue
                 self.doneWriting = True
-            
-
 
     def startTest(self):
         ''' Gets called when start button is triggered by user'''
