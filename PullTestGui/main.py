@@ -7,12 +7,9 @@ from PyQt5.QtCore    import QTimer, QTime
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 
 import sys, time, random, datetime
-import os.path
-import serial_asyncio
 import serial
 import numpy        as np
 import pyqtgraph    as pg
-from   pyqtgraph    import PlotWidget
 from   collections  import deque
 from   functools    import partial # passing args into slot functions
 
@@ -67,10 +64,6 @@ class MainWindow(QtWidgets.QMainWindow):
     def updatePlot(self):
         ''' Gets called periodically by a QtTimer to update the speed plot 
         in 5 seconds after hitting the start button'''
-        self.data.append({'x': self.time.elapsed(), 'y': np.random.uniform(-1, 1)})
-        x = [item['x'] for item in self.data]
-        y = [item['y'] for item in self.data]
-        (self.plotItem.listDataItems())[0].setData(x=x, y=y, pen= pg.mkPen('w', width=1, style=QtCore.Qt.DotLine))
 
         if self.time.elapsed() >= 5000: # only do logging for 5 seconds
             self.timer.stop() # Stop calling updatePlot periodically
@@ -89,14 +82,21 @@ class MainWindow(QtWidgets.QMainWindow):
                     for item in self.data:
                         file.write(str(item['x']) + ',' + str(item['y']) + '\n')
                 self.doneWriting = True
-            self.data.clear() # removed all stored data in the queue 
+            self.data.clear() # removed all stored data in the queue
+        self.data.append({'x': self.time.elapsed(), 'y': np.random.uniform(-1, 1)})
+        x = [item['x'] for item in self.data]
+        y = [item['y'] for item in self.data]
+        #(self.plotItem.listDataItems())[0].setData(x=x, y=y, marker='+',pen= pg.mkPen('w', width=1, style=QtCore.Qt.DotLine))
+        (self.plotItem.listDataItems())[0].setData(x=x, y=y, symbol= 'o',pen= None, symbolPen=(255,255,255), antialias=True, brush='w')
 
     def startTest(self):
         ''' Gets called when start button is triggered by user'''
 
         # Start the clock to record time between data points
         self.time.start()
-        self.plotItem.addItem(pg.PlotDataItem())
+        #self.plotItem.addItem(pg.PlotDataItem())
+        self.scatterPlot = pg.ScatterPlotItem()
+        self.plotItem.addItem(self.scatterPlot)
 
         # Reset the logging flag
         self.doneWriting = False
@@ -104,14 +104,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.startBtn.setEnabled(False) # Avoid double clicking issue
         print("Test started")
         # TODO: Send commands to motor
-        
+
         # Collect the RPM and plot linear velocity
         self.timer.timeout.connect(self.updatePlot)
         self.timer.start(20) #update every 20 miliseconds
 
     def stopTest(self):
         ''' Gets called when stop button is triggered by user'''
-
+        self.timer.stop()
         # TODO: stop the motor
 
         print("Test stopped")
@@ -122,6 +122,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.currentpositionLabel.setText(str(val) + "%")
         print("manual control dial changed %i" %val)
 
+        # TODO: Use the dial value to control the motor position
     def incrementSpeed(self):
         ''' Gets called when increment button is triggered by user'''
         self.ui.decrementBtn.setEnabled(True)
