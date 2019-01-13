@@ -20,14 +20,18 @@ class Ui_MainWindow(object):
 "}\n"
 "QTabBar{ background: #c9cbcd; color: rgb(9,9,9)}\n"
 "QPushButton:hover, QPushButton:pressed{background-color: rgba(255,255,255,0.6)}\n"
+"QPushButton#incrementBtn{}"
+"QPushButton#decrementBtn{}"
 "QGroupBox{color: white}\n"
 "QGroupBox > QLabel{color: white}\n"
 "QGroupBox > QLineEdit, QToolButton{background: white}\n"
-"QGroupBox::indicator\n"
+"QGroupBox::indicator:checked\n"
 "{\n"
-"    background: white;\n"
-"    width: 18px;\n"
-"    height: 18px\n"
+"    image: url(Resources/indicator_check.png);\n"
+"}\n"
+"QGroupBox::indicator:unchecked\n"
+"{\n"
+"    image: url(Resources/indicator_uncheck.png);\n"
 "}\n"
 "\n"
 "QGroupBox  {\n"
@@ -45,7 +49,6 @@ class Ui_MainWindow(object):
 "    border: 0.5px solid rgba(255,255,255,0.2);\n"
 "    border-radius: 3px;\n"
 "}\n"
-"/*QMainWindow{background: #e8e8e8}*/\n"
 "QPushButton:disabled{ background: #999; color: black}\n"
 "QPushButton{ height: 45px; background: #f3f4f5}\n"
 "PlotWidget{ color: rgb(35, 85, 244) !important}\n"
@@ -156,7 +159,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.startBtn.setFont(font)
-        self.startBtn.setStyleSheet("background: #006cb1; color: white")
+        self.startBtn.setStyleSheet(" QPushButton:enabled{background: #006cb1; color: white} QPushButton:disabled{background: gray; color:black}")
         self.startBtn.setObjectName("startBtn")
         self.gridLayout_2.addWidget(self.startBtn, 3, 0, 1, 3)
         self.setpullspeedLabel = QtWidgets.QLabel(self.controlGroup)
