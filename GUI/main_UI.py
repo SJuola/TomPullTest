@@ -25,6 +25,7 @@ class Ui_MainWindow(object):
 "QGroupBox{color: white}\n"
 "QGroupBox > QLabel{color: white}\n"
 "QGroupBox > QLineEdit, QToolButton{background: white}\n"
+"QMessageBox , QMessageBox > *{background-color: white; color: black}"
 "QGroupBox::indicator:checked\n"
 "{\n"
 "    image: url(Resources/indicator_check.png);\n"
@@ -95,7 +96,7 @@ class Ui_MainWindow(object):
         font.setFamily("Sans Serif")
         font.setPointSize(10)
         self.dataloggingGroup.setFont(font)
-        self.dataloggingGroup.setTitle("Data Logging")
+        self.dataloggingGroup.setTitle("Data Logging [diabled]")
         self.dataloggingGroup.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.dataloggingGroup.setCheckable(True)
         self.dataloggingGroup.setChecked(False)
@@ -190,7 +191,10 @@ class Ui_MainWindow(object):
         self.pullspeedunitLabel.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         self.pullspeedunitLabel.setObjectName("pullspeedunitLabel")
         self.gridLayout_2.addWidget(self.pullspeedunitLabel, 1, 1, 1, 1)
-        self.incrementBtn = QtWidgets.QPushButton(self.controlGroup)
+        self.incrementBtn = QtWidgets.QToolButton(self.controlGroup)
+        self.incrementBtn.setStyleSheet("background-color: transparent; border:none")
+        self.incrementBtn.setIcon(QtGui.QIcon('Resources/incrementBtn.png'))
+        self.incrementBtn.setIconSize(QtCore.QSize(70,70))
         self.incrementBtn.setEnabled(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -201,10 +205,12 @@ class Ui_MainWindow(object):
         font.setFamily("Monospace")
         font.setPointSize(35)
         self.incrementBtn.setFont(font)
-        self.incrementBtn.setStyleSheet("")
         self.incrementBtn.setObjectName("incrementBtn")
         self.gridLayout_2.addWidget(self.incrementBtn, 0, 2, 2, 1)
         self.decrementBtn = QtWidgets.QPushButton(self.controlGroup)
+        self.decrementBtn.setStyleSheet("background-color: transparent; border:none")
+        self.decrementBtn.setIcon(QtGui.QIcon('Resources/decrementBtn.png'))
+        self.decrementBtn.setIconSize(QtCore.QSize(70,70))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -252,7 +258,7 @@ class Ui_MainWindow(object):
         self.currentpositionLabel.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Monospace")
-        font.setPointSize(16)
+        font.setPointSize(30)
         self.currentpositionLabel.setFont(font)
         self.currentpositionLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.currentpositionLabel.setObjectName("currentpositionLabel")
@@ -302,8 +308,8 @@ class Ui_MainWindow(object):
         self.startBtn.setText(_translate("MainWindow", "Start"))
         self.setpullspeedLabel.setText(_translate("MainWindow", "50"))
         self.pullspeedunitLabel.setText(_translate("MainWindow", "in/s"))
-        self.incrementBtn.setText(_translate("MainWindow", "+"))
-        self.decrementBtn.setText(_translate("MainWindow", "-"))
+        self.incrementBtn.setText(_translate("MainWindow", ""))
+        self.decrementBtn.setText(_translate("MainWindow", ""))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Tab1), _translate("MainWindow", "Test Mode"))
         self.groupBox.setTitle(_translate("MainWindow", "Current Position "))
         self.currentpositionLabel.setText(_translate("MainWindow", "50%"))

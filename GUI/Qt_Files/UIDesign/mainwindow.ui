@@ -299,6 +299,9 @@ PlotWidget{ color: rgb(35, 85, 244) !important}
                <pointsize>35</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>Increase pulling speed</string>
+             </property>
              <property name="styleSheet">
               <string notr="true"/>
              </property>
