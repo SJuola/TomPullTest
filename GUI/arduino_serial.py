@@ -5,15 +5,18 @@ import serial
 import pyqtgraph
 from threading import Thread
 import os
+# TODO:
+# [ ] Run serial communication on a seperate QThread
+# [ ] Combine the SerinoMonitor and SerialSender into one class
 
-class SerialMonitor(QObject):
+class SerialCommunication(QObject):
     bufferUpdated = pyqtSignal(int)
     def __init__(self, port, rate):
         super(SerialMonitor, self).__init__()
         self.running = False
         self.port = port
         self.rate = rate
-        self.thread = QThread.create(Function target=self.serial_monitor_thread)
+        self.thread = QThread.create(Function =self.serial_monitor_thread)
         self.ser = None
     def startThread(self):
         try:
@@ -43,6 +46,8 @@ class SerialMonitor(QObject):
                         print("An unknown error occured while opening serial port")
             elif not self.ser.isOpen():
                 self.ser.open()
+            else:
+                pass
             msg = self.ser.readline()
             print("Message received: ", msg)
             if msg:
@@ -53,14 +58,11 @@ class SerialMonitor(QObject):
             else:
                 pass
             #self.ser.close()
-            #self.stop()
-class SerialSender(QObject):
-    #sendingData = pyqtSignal(str)
-    def __init__(self, port, rate):
-        super(SerialSender, self).__init__()
-        self.port = port
-        self.rate = rate
-def main():
+        self.stop()
+    def sendCommand(self):
+        print("Sending command to Arduino")
+
+def test():
     ser = SerialMonitor(port='/dev/ttyACM0', rate=115200)
     try:
         if ser.startThread():
@@ -69,4 +71,4 @@ def main():
         ser.stop()
         print("Ending ...")
 if __name__=="__main__":
-    main()
+    test()

@@ -1,5 +1,4 @@
-#include <math.h>
-
+#include <CommandHandler.h>
 #define channelA 2     // Use pin 2 and 3 for reading encoder
 #define channelB 3
 
@@ -7,6 +6,8 @@
 #define motorChanB 5
 #define numOfSteps 200 // Num of steps for 1 rev of the stepper motor
 #define debug true     // For debugging purposes
+
+CommandHandler<> SerialCommandHandler;
 
 volatile int stateA = LOW; //store the current state of channel A
 volatile int stateB = LOW;
@@ -24,7 +25,7 @@ bool estop_flag         = false;
 
 
 //Timing
-unsigned long prevTime = millis();f
+unsigned long prevTime = millis();
 
 void setup() {
   pinMode(channelA, INPUT_PULLUP);
@@ -37,10 +38,16 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(channelB), read_encoderB, CHANGE);
   stateA = digitalRead(channelA);
   stateB = digitalRead(channelB); //initial reading of each channel
-  Serial.begin(115200);
+  Serial.begin(9600);
+
+  SerialCommandHandler.AddCommand(F("blink"), blink);
+  SerialCommandHandler.SetDefaultHandler(unknown_cmd);
 }
 
 void loop() {
+  SerialCommandHandler.Process();
+  //blink_demo();
+  /*
   if(stringComplete)
   {
     String paramVal = paramString.substring(1, paramString.length());
@@ -82,15 +89,20 @@ void loop() {
     cmdReadComplete = false;
     paramReadComplete = false;
   }
+  */
 }
 
-
+void unknown_cmd()
+{
+  Serial.println("Unknown command ...");
+}
 
 /* Serial event is triggered when there is data in the 
  *  serial buffer
  *  Serial data format:
  *  command:parametervalue\n
  */
+ /*
 void serialEvent() {
   while (Serial.available())
   {
@@ -118,6 +130,7 @@ void serialEvent() {
     }
   }
 }
+*/
 
 /* Motor will spin continuously
  */
@@ -155,14 +168,26 @@ void jogMode(bool enable)
   }
 }
 
-void blink()
+void blink_demo()
 {
   for( int i=0; i<20; i++)
   {
     digitalWrite(LED_BUILTIN, HIGH);
-    delay(30);
+    delay(250);
     digitalWrite(LED_BUILTIN, LOW);
-    delay(30);
+    delay(250);
+  }
+}
+void blink(CommandParameter &param)
+{
+  Serial.println("BLINKING ...");
+  int temp = param.NextParameterAsInteger(temp);
+  for( int i=0; i<temp; i++)
+  {
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(250);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(250);
   }
 }
 

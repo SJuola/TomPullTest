@@ -1,3 +1,5 @@
+#! usr/bin/env/python3
+
 # Author: Kiet Tran
 # Init date: 12/21/2018
 # Work in progress
@@ -14,13 +16,14 @@ from   collections  import deque
 from   functools    import partial # for passing args into slot functions
 
 from main_UI import Ui_MainWindow as uiwindow # Import the Python script exported from Qt Creator .ui file
-from arduino_serial import SerialMonitor, SerialSender
+from arduino_serial import SerialCommunication
+
 # TODO:
 # - Receiving data from Arduino and show the data on the plot
 # - Sending settings to Arduino through serial
 
 class MainWindow(QtWidgets.QMainWindow):
-	""" Create a class to avoid using global variables"""
+    """ Create a class to avoid using global variables"""
     def __init__(self):
         super(MainWindow, self).__init__()
         
@@ -57,7 +60,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         '''configure velocity plot'''
         self.plotItem = self.ui.plotarea.getPlotItem()
-        self.ui.plotarea.setAntialiasing(True)
+        self.ui.plotarea.setAntialiasing(True) # Make beautiful plot :)
         self.plotItem.enableAutoRange(axis="y", enable=True)
         self.plotItem.setXRange(min=0, max=5000, padding=0.1)
         self.plotItem.setLabel('left','Pulling speed [in/s]')
