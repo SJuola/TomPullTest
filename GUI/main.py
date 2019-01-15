@@ -11,15 +11,16 @@ import serial
 import numpy        as np
 import pyqtgraph    as pg
 from   collections  import deque
-from   functools    import partial # passing args into slot functions
+from   functools    import partial # for passing args into slot functions
 
 from main_UI import Ui_MainWindow as uiwindow # Import the Python script exported from Qt Creator .ui file
 from arduino_serial import SerialMonitor, SerialSender
 # TODO:
-# - Add serial communication and parsing data from serial
-# - Add serial command functions
+# - Receiving data from Arduino and show the data on the plot
+# - Sending settings to Arduino through serial
 
 class MainWindow(QtWidgets.QMainWindow):
+	""" Create a class to avoid using global variables"""
     def __init__(self):
         super(MainWindow, self).__init__()
         
@@ -50,12 +51,15 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.toolButton.clicked.connect(partial(     self.logData, True))    # Data logging group
         self.ui.dataloggingGroup.toggled.connect(partial(self.logData, False))
         self.ui.manualDial.valueChanged.connect(        self.manual_control)    # Manual control dial
+        self.serial_monitor = SerialMonitor(port='/dev/ttyACM0', rate=115200)
+        self.serial_monitor.bufferUpdated.connect(self.updatePlot)
         
+
         '''configure velocity plot'''
         self.plotItem = self.ui.plotarea.getPlotItem()
         self.ui.plotarea.setAntialiasing(True)
         self.plotItem.enableAutoRange(axis="y", enable=True)
-        self.plotItem.setXRange(min=0, max=3000, padding=0.1)
+        self.plotItem.setXRange(min=0, max=5000, padding=0.1)
         self.plotItem.setLabel('left','Pulling speed [in/s]')
         self.plotItem.setLabel('bottom', 'Time [s]')
         self.plotItem.showAxis('right') # Show the plot box
@@ -73,18 +77,20 @@ class MainWindow(QtWidgets.QMainWindow):
         self.data.clear()
     	
     ''' SLOT FUNCTIONS '''
-    def updatePlot(self):
-        ''' Gets called periodically by a QtTimer to update the speed plot 
-        in 5 seconds after hitting the start button'''
+    def updatePlot(self, msg):
+        """ Gets called periodically by a QtTimer to update the speed plot 
+        in 5 seconds after hitting the start button"""
         if not self.doneWriting:
-            self.data.append({'x': self.time.elapsed(), 'y': np.random.uniform(self.setSpeed-10, self.setSpeed+10)})
+            #self.data.append({'x': self.time.elapsed(), 'y': np.random.uniform(self.setSpeed-10, self.setSpeed+10)})
+            self.data.append({'x': self.time.elapsed(), 'y': msg})
             x = [item['x'] for item in self.data]
             y = [item['y'] for item in self.data]
             #(self.plotItem.listDataItems())[0].setData(x=x, y=y, marker='+',pen= pg.mkPen('w', width=1, style=QtCore.Qt.DotLine))
             (self.plotItem.listDataItems())[0].setData(x=x, y=y, symbol= 'o',pen= pg.mkPen('w', width=3), antialias=True, brush=None)
             
-            if self.time.elapsed() >= 3000: # only do logging for 3 seconds
-                self.timer.stop() # Stop calling updatePlot periodically
+            if self.time.elapsed() >= 5000: # only do logging for 3 seconds as the test is pretty fast
+                self.serial_monitor.stop()
+                self.timer.stop() # Stop calling updatePlot
                 self.ui.startBtn.setEnabled(True)         
                 
                 #Write data to file
@@ -130,13 +136,22 @@ class MainWindow(QtWidgets.QMainWindow):
         print("Test started")
         # TODO: Send commands to motor
 
+        try:
+        	if not self.serial_monitor.thread.isAlive():
+        		if self.serial_monitor.startThread():
+        			print("Successfully starting a new thread for serial monitor")
+        		
+        except Exception as e:
+        	print("Not able to start the serial monitor thread")
+
         # Collect the RPM and plot linear velocity
-        self.timer.timeout.connect(self.updatePlot)
-        self.timer.start(20) #update every 20 miliseconds
+        #self.timer.timeout.connect(self.updatePlot)
+        #self.timer.start(20) #update every 20 miliseconds
 
     def stopTest(self):
         ''' Gets called when stop button is triggered by user'''
         self.timer.stop()
+        self.serial_monitor.stop()
         self.ui.startBtn.setEnabled(True) 
         self.clearPlot()
         # TODO: stop the motor
@@ -202,8 +217,9 @@ class MainWindow(QtWidgets.QMainWindow):
 def main():
     app = QtWidgets.QApplication(sys.argv)
     win = MainWindow()
-    # Use win.showFullScreen() to show the application in full screen on start up
-    #win.showFullScreen()
+    # win.showFullScreen() # show the application in full screen on start up
     win.show()
     sys.exit(app.exec_())
-main()
+
+if __name__=='__main__':
+	main()
